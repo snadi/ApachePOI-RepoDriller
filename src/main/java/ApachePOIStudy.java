@@ -8,6 +8,8 @@ import org.repodriller.filter.range.Commits;
 import org.repodriller.persistence.csv.CSVFile;
 import org.repodriller.scm.GitRepository;
 
+import java.util.ArrayList;
+
 public class ApachePOIStudy implements Study {
 
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class ApachePOIStudy implements Study {
         new RepositoryMining()
         .in(GitRepository.singleProject("/Users/snadi/Documents/Academic/Projects/DysDoc/poi"))
         .through(Commits.range("ce7446c76ac86b9abb062bbfc738efb765923232", "219dff00e61e9ad73a16b73a430cb80954f6262c"))
-        .process(new FullCommitVisitor(), new CSVFile("devs.csv"))
+        .process(new FullCommitVisitor(), new CSVFile("devs.csv", false, new String[]{"CommitHash", "CommitMsg", "CommitDate", "CommitFileModifications", "ModifiesJavaFile?", "CommitterEmail", "CommitterName"}))
         .mine();
     }
 }
