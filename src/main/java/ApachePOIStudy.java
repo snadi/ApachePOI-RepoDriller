@@ -21,7 +21,7 @@ public class ApachePOIStudy implements Study {
         //first commit hash: 0805dbbe510bfb860fb11cf022325d34c130fb43
         new RepositoryMining()
         .in(GitRepository.singleProject("/Users/snadi/Documents/Academic/Projects/DysDoc/poi"))
-        .through(Commits.range("ce7446c76ac86b9abb062bbfc738efb765923232", "219dff00e61e9ad73a16b73a430cb80954f6262c"))
+        .through(Commits.range("0805dbbe510bfb860fb11cf022325d34c130fb43", "219dff00e61e9ad73a16b73a430cb80954f6262c"))
         .process(new FullCommitVisitor(), new CSVFile("devs.csv", false, new String[]{"CommitHash", "CommitMsg", "CommitDate", "CommitFileModifications", "ModifiesJavaFile?", "CommitterEmail", "CommitterName"}))
         .mine();
     }
