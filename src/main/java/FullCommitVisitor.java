@@ -18,26 +18,14 @@ public class FullCommitVisitor implements CommitVisitor {
     public void process(SCMRepository repo, Commit commit, PersistenceMechanism writer) {
 
         OnlyModificationsWithFileTypes filter = new OnlyModificationsWithFileTypes(Arrays.asList("java"));
-        StringBuilder jsonStringBuilder = new StringBuilder();
-        jsonStringBuilder.append("\"");
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        try {
-           jsonStringBuilder.append(ow.writeValueAsString(commit.getModifications()));
-            System.out.println("====");
-            System.out.println(ow.writeValueAsString(commit.getModifications()));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
 
-        jsonStringBuilder.append("\"");
 
         writer.write(
                 commit.getHash(),
                 commit.getMsg(),
-                commit.getDate(),
+                commit.getDate().getTime(),
                 commit.getModifications(),
-                jsonStringBuilder.toString(),
-                (filter.accept(commit) ? "yes" : "no"),
+                (filter.accept(commit) ? "true" : "false"),
                 commit.getCommitter().getEmail(),
                 commit.getCommitter().getName()
         );
